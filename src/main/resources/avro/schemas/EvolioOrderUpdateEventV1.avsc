@@ -1,0 +1,375 @@
+{
+  "type": "record",
+  "name": "EvolioOrderUpdateEventV1",
+  "namespace": "com.eon.evolio.schema.v1",
+  "fields": [
+    {
+      "name": "orderId",
+      "type": "string"
+    },
+    {
+      "name": "aggregationId",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "eventType",
+      "type": {
+        "type": "enum",
+        "name": "EvolioOrderUpdateEventType",
+        "symbols": [
+          "NEW",
+          "UPDATE",
+          "DELETE"
+        ]
+      }
+    },
+    {
+      "name": "orderType",
+      "type": {
+        "type": "enum",
+        "name": "EvolioOrderUpdateOrderType",
+        "symbols": [
+          "BLOCK",
+          // Standard Tradable Product - created from Decomposition, estar or manually
+          "NETTING",
+          "SHAPE",
+          "PROXY"
+        ]
+      }
+    },
+    {
+      "name": "sellBook",
+      "type": {
+        "type": "record",
+        "name": "EvolioOrderBook",
+        "fields": [
+          {
+            "name": "bookName",
+            "type": "string"
+          },
+          {
+            "name": "parentBookName",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "unit",
+            "type": {
+              "type": "enum",
+              "name": "EvolioBookUnit",
+              "symbols": [
+                "SYSTEM",
+                "RPM",
+                "GPO",
+                "TNO"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "sellTrader",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "buyBook",
+      "type": "EvolioOrderBook"
+    },
+    {
+      "name": "buyTrader",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "block",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "marketArea",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "region",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "commodity",
+      "type": {
+        "type": "enum",
+        "name": "CommodityTypeEnum",
+        "default": "UNKNOWN",
+        "symbols": [
+          "GAS",
+          "POWER",
+          "CARBON",
+          "UNKNOWN"
+        ]
+      }
+    },
+    {
+      "name": "quantity",
+      "type": "string"
+    },
+    {
+      "name": "unit",
+      "type": {
+        "type": "enum",
+        "name": "EvolioOrderUpdateUnitType",
+        "symbols": [
+          "MWH",
+          "MW",
+          "KT",
+          "T",
+          "THERM",
+          "KTH",
+          "KW",
+          "KWH",
+          "GWH"
+        ]
+      }
+    },
+    {
+      "name": "pricingMechanism",
+      "type": {
+        "type": "enum",
+        "name": "PricingMechanism",
+        "symbols": [
+          "INTRADAY_PFC",
+          "EOD_PFC",
+          "MANUAL"
+        ]
+      }
+    },
+    {
+      "name": "price",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "EvolioOrderUpdatePrice",
+          "fields": [
+            {
+              "name": "commodityPrice",
+              "type": "double"
+            },
+            {
+              "name": "currency",
+              "type": "string"
+            },
+            {
+              "name": "includedLiquidityAdjustmentFactor",
+              "type": [
+                "null",
+                "double"
+              ],
+              "default": null
+            },
+            {
+              "name": "riskPremia",
+              "type": [
+                "null",
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "record",
+                    "name": "EvolioOrderUpdateRiskPremia",
+                    "fields": [
+                      {
+                        "name": "riskPremiaType",
+                        "type": "string"
+                      },
+                      {
+                        "name": "riskPremiaValue",
+                        "type": "double"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "default": null
+            }
+          ]
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "referencedHdtId",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "referencedEvolioId",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "referencedEStarId",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "referencedAllegroId",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "linkedAllegroId",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "flags",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "string"
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "timePeriod",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "start",
+      // iso strings in frontend
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "end",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "timezone",
+      "type": "string"
+    },
+    {
+      "name": "orderStatus",
+      "type": {
+        "type": "enum",
+        "name": "EvolioOrderUpdateOrderStatus",
+        "symbols": [
+          "DRAFT",
+          "ACTIVE",
+          "EXPIRED",
+          "FULFILLED",
+          "SENT",
+          "BOOKED",
+          "VOID"
+        ]
+      }
+    },
+    {
+      "name": "createdBy",
+      "type": "string"
+    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "updatedBy",
+      "type": "string"
+    },
+    {
+      "name": "updatedAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "disaggregatedVolumes",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": {
+            "name": "DisaggregatedVolume",
+            "type": "record",
+            "fields": [
+              {
+                "name": "startTime",
+                "type": {
+                  "type": "long",
+                  "logicalType": "timestamp-millis"
+                }
+              },
+              {
+                "name": "volume",
+                "type": "string"
+              },
+              {
+                "name": "value",
+                "type": [
+                  "null",
+                  "string"
+                ],
+                "default": null
+              }
+            ]
+          }
+        }
+      ],
+      "default": null
+    }
+  ]
+}
